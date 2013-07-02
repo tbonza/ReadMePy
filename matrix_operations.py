@@ -1,4 +1,3 @@
-
 def get_row(matrix, i):
     return matrix[i]
 
@@ -13,7 +12,7 @@ def num_col(matrix):
 
 def is_col_extreme(col):
     mean = sum(col) / len(col)
-    return mean in (1, 0)
+    return mean == 0.0 or mean == 1.0
 
 def swap_cols_rows(matrix):
     """
@@ -52,9 +51,3 @@ def normalized_matrix(matrix):
     rebased = [[cell - minv for cell in row] for row in matrix]
     resized = [[cell*1.0/difference for cell in row] for row in rebased]
     return resized
-
-    
-
-
-
-
