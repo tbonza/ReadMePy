@@ -9,6 +9,9 @@ def remove_nonvariant(matrix):
         function in the R library ReadMe. 
         '''
         return matrix_operations.normalized_matrix(matrix_operations.remove_extreme_cols(matrix))
+
+def make_binary(matrix):
+        pass
         
 
 
