@@ -1,4 +1,5 @@
 # write function for make.binary
+import matrix_operations
 
 def make_binary(matrix):
     # assign number or rows & columns to variables
@@ -10,9 +11,18 @@ def make_binary(matrix):
     return matrix
 
 def is_blank(matrix):
-    # is a cell blank?
-    pass
-
+    '''
+    This function assumes that when a file is read, empty cells
+    will be assigned as 'None'. Given this assumption we can
+    determine whether a cell, or list item, is empty.
+    '''
+    if cell is None:
+        return True
+    elif cell is not None:
+        return False
+    else:
+        return "Error: cell is not designated as int or none"
+    
 def check_cell(matrix):
     # check each cell in matrix
     '''
@@ -24,8 +34,8 @@ def check_cell(matrix):
     '''
     # clean up this nonsense
     # with list comprehensions
-    pass
-    
+    for cell in range(num_row(matrix)):
+        get_col(matrix, cell)
 
 
 
