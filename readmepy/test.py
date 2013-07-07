@@ -1,11 +1,11 @@
 # write function for make.binary
-import matrix_operations
+import matrix_operations as mo
 
 def make_binary(matrix):
     # assign number or rows & columns to variables
-    if(check_cell(is_blank(matrix)) == True):
+    if(is_blank(matrix) == True):
         cell = 0
-    elif(check_cell(is_blank(matrix)) == False):
+    elif(is_blank(matrix) == False):
         cell = 1
                 
     return matrix
@@ -16,27 +16,18 @@ def is_blank(matrix):
     will be assigned as 'None'. Given this assumption we can
     determine whether a cell, or list item, is empty.
     '''
-    if cell is None:
+    if check_cell(matrix) is None:
         return True
-    elif cell is not None:
+    elif check_cell(matrix) is not None:
         return False
     else:
         return "Error: cell is not designated as int or none"
-    
+  
+  
 def check_cell(matrix):
     # check each cell in matrix
-    '''
-     r = num_row(matrix)
-    c = num_col(matrix, 1)
-    for i in range(r):
-        print r
-        for j in range(c):
-    '''
     # clean up this nonsense
     # with list comprehensions
-    for cell in range(num_row(matrix)):
-        get_col(matrix, cell)
-
-
-
-
+    for row in range(mo.num_row(matrix)):
+        for cell in range(len(mo.get_row(matrix, row))):
+            print  mo.get_row(matrix,row)[cell], "\t"
