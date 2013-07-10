@@ -23,5 +23,5 @@ def assign_binary(matrix):
     binary = 
     [[0 if cell == True else 1
       for cell in row]
-     for row in t.is_blank(matrix)]
+     for row in is_blank(matrix)]
     return binary
