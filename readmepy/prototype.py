@@ -3,7 +3,7 @@
 
 def remove_nonvariant(matrix):
         '''
-        This function removes extreme columns then 
+        Removes extreme columns then 
         normalizes the matrix to values between 1 
         and 0. It's named this way to match the
         function in the R library ReadMe. 
@@ -11,8 +11,11 @@ def remove_nonvariant(matrix):
         return matrix_operations.normalized_matrix(matrix_operations.remove_extreme_cols(matrix))
 
 def make_binary(matrix):
-        pass
-        
+        '''
+        Changes blank cells to 0 and populated cells
+        to 1
+        '''
+        return binary_operations.assign_binary(matrix)
 
 
         
