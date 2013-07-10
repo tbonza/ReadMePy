@@ -11,6 +11,8 @@ def remove_nonvariant(matrix):
         and 0. It's named this way to match the
         function in the R library ReadMe. 
         '''
+        # Known bug: if None is passed to function the 
+        # matrix can't be normalized. 
         return matrix_operations.normalized_matrix(matrix_operations.remove_extreme_cols(matrix))
 
 def make_binary(matrix):
