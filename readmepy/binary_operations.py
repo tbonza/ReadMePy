@@ -20,8 +20,7 @@ def assign_binary(matrix):
     and converts them to 0 if the cell is designated as None
     when data was read into the program. 
     '''
-    binary = 
-    [[0 if cell == True else 1
-      for cell in row]
-     for row in is_blank(matrix)]
+    binary = [[0 if cell == True else 1
+               for cell in row]
+              for row in is_blank(matrix)]
     return binary
