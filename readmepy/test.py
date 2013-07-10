@@ -17,25 +17,16 @@ def is_blank(matrix):
 def assign_binary(matrix):
     '''
     Takes the boolean values assigned to the matrix by is_blank() 
-    and converts them to 0 if the cell was blank, 1 if not, when 
-    the data is read into the program.
+    and converts them to 0 if the cell is designated as None
+    when data was read into the program. 
     '''
-    new = []
-    [[new.append(0) if cell is True
-      else new.append(1)
+    binary = 
+    [[0 if cell == True else 1
       for cell in row]
-     for row in is_blank(matrix)]
-    return new
+     for row in t.is_blank(matrix)]
+    return binary
 
-def remake_matrix(matrix):
-    '''
-    Takes a list and converts it into a matrix based on the
-    shape of the original matrix.
-    '''
-    for cell in mo.num_row(assign_binary(matrix)):
-        append(cell)
         
-
 
         
 
