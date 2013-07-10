@@ -1,6 +1,9 @@
 # This is the main file. Functions share the same name as 
 # their R counterparts in ReadMe
 
+import matrix_operations
+import binary_operations
+
 def remove_nonvariant(matrix):
         '''
         Removes extreme columns then 
