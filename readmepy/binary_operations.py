@@ -1,6 +1,4 @@
-# write function for make.binary
-import matrix_operations as mo
-
+# functions for make_binary
 
 def is_blank(matrix):
     '''
