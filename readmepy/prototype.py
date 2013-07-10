@@ -13,7 +13,8 @@ def remove_nonvariant(matrix):
         '''
         # Known bug: if None is passed to function the 
         # matrix can't be normalized. 
-        return matrix_operations.normalized_matrix(matrix_operations.remove_extreme_cols(matrix))
+        return matrix_operations.normalized_matrix(
+        matrix_operations.remove_extreme_cols(matrix))
 
 def make_binary(matrix):
         '''
@@ -21,6 +22,17 @@ def make_binary(matrix):
         to 1
         '''
         return binary_operations.assign_binary(matrix)
+
+def readme(
+        undergradlist = [], trainingset = None, testset = None, 
+        formula = None, features = None, n_subset = None, 
+        prob_wt = None, boot_se = None, nboot = None, 
+        printit = None):
+        '''
+        Currently being written in test.py
+        '''
+        pass
+        
 
 
         
