@@ -1,4 +1,4 @@
- This is the main file. Functions share the same name as 
+# This is the main file. Functions share the same name as 
 # their R counterparts in ReadMe
 
 import matrix_operations
