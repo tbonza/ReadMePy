@@ -52,8 +52,22 @@ def readme(
 
 
 
+# Checking out porter stemming algorithm
+ 
+import nltk
+ 
+# Porter's stemmer
+stemmer = nltk.PorterStemmer()
+stemmer.stem('appearance')
+ 
+# It works
+verbs = ['appears', 'appear', 'appeared', 'appearing', 'appearance']
+map(stemmer.stem, verbs)
 
-
+# It doesn't, good catch by John
+bugs = ['crunchy','crunchiest','connecter','connector']
+map(stemmer.stem,bugs)
+ 
 
     
     
