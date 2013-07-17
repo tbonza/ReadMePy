@@ -1,7 +1,10 @@
 # Inputs text used in ReadMePy
 # This file is being tested and not linked to any other functions
 
-path = ''
+import nltk # Used to clean up html
+import requests 
+
+path = '/home/ty/summer_project/clintonposts/'
 
 def input_multiple_f(path, control):
     '''
@@ -21,6 +24,14 @@ def read_local(document):
     '''
     f = open(document).read()
     return f
+
+def read_html(url): # This needs work
+    '''
+    Reads html files into ReadMePy
+    '''
+    r = requests.get(url)
+    text = r.text()
+    return text
 
 def parse_control_f(control):
     '''
