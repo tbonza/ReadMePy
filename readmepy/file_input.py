@@ -6,18 +6,19 @@ import requests
 
 path = '/home/ty/summer_project/clintonposts/'
 
-def input_multiple_f(path, control):
+def input_multiple_f(path, control): #needs work
     '''
     Takes a control file with a list of file
     names, cocatenates the name with a file
     path, then returns the location of each
     document in the control file.
     '''
-    for text_doc in control:
-        document = path+text_doc
-    return document
+    file_list = []
+    for file_name in read_local(control):
+        file_list.append(path+file_name)
+    return file_list
 
-def read_local(document):
+def read_local(document): #works
     '''
     Reads local files into
     ReadMePy
