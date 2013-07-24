@@ -1,7 +1,4 @@
 # Inputs text used in ReadMePy
-# This file is being tested and not linked to any other functions
-
-# Inputs text used in ReadMePy
 # for Clinton Demo
 #
 # This file is being tested and not linked to any other functions
