@@ -1,43 +1,31 @@
 # Inputs text used in ReadMePy
 # This file is being tested and not linked to any other functions
 
-import nltk # Used to clean up html
-import requests 
+# Inputs text used in ReadMePy
+# for Clinton Demo
+#
+# This file is being tested and not linked to any other functions
 
 path = '/home/ty/summer_project/clintonposts/'
 
-def input_multiple_f(path, control): #needs work
+def read_local(document): 
     '''
-    Takes a control file with a list of file
-    names, cocatenates the name with a file
-    path, then returns the location of each
-    document in the control file.
-    '''
-    file_list = []
-    for file_name in read_local(control):
-        file_list.append(path+file_name)
-    return file_list
-
-def read_local(document): #works
-    '''
-    Reads local files into
-    ReadMePy
-    '''
-    f = open(document).read()
+Reads local files into
+ReadMePy
+'''
+    f = open(document, 'r')
     return f
 
-def read_html(url): # This needs work
+def tuple_list(document):
     '''
-    Reads html files into ReadMePy
+    Read each line in as a tuple
     '''
-    r = requests.get(url)
-    text = r.text()
-    return text
-
-def parse_control_f(control):
-    '''
-    Parses control file,
-    specific to clintonposts
-    example used in ReadMe
-    '''
-    pass
+    tuple_list = []
+    lines = read_local(document)
+    for line in lines.readlines():
+        temp = line
+        
+        tuple_list.append(
+        temp[0] = temp[1:(len(temp)-1))
+        )
+    return tuple_list
