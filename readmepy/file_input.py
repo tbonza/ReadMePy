@@ -25,17 +25,12 @@ def assign_tuple(document):
         tuple_list.append(t)
     return tuple_list
              
-'''
-def tuple_list(document):
-    
-    Read each line in as a tuple
-    
-    tuple_list = []
-    lines = read_local(document)
-    for line in lines.readlines():
-        temp = line
-        length = len(temp) - 1
-        tuple_list.append(temp[0] = temp[1:length]
-    return tuple_list
+# Test list to tuple for control.txt
 
-'''
+test = 'This.is, the first, line of the file.\n'
+
+test2 = 'That.is, the second, line of the file.\n'
+
+okey = [test.strip().split(','), test2.strip().split(',')]
+
+pokey = [(okey[line][0],okey[line][1],okey[line][2]) for line in range(len(okey))]
