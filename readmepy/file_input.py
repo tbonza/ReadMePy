@@ -1,7 +1,5 @@
 # Inputs text used in ReadMePy
 # for Clinton Demo
-#
-# This file is being tested and not linked to any other functions
 
 path = '/home/ty/summer_project/clintonposts/'
 
@@ -12,25 +10,42 @@ def read_local(document):
     Reads local files into
     ReadMePy by each line
     '''
-    f = open(document, 'r'
+    f = open(document, 'r')
     return f
 
-def assign_tuple(document):
+
+def assign_list(document):
     '''
-    line becomes a tuple
+    file becomes a list
     '''
-    tuple_list = []
+    assign_list = []
     for line in read_local(document).readlines():
-        t = line
-        tuple_list.append(t)
-    return tuple_list
-             
-# Test list to tuple for control.txt
+        assign_list.append(line)
+    return assign_list
 
-test = 'This.is, the first, line of the file.\n'
+def strip_split(document):
+    '''
+    Strips '\n' and separates each list
+    item by ','
+    '''
+    cleaned_list = []
+    for line in range(len(assign_list(document))):
+        l = assign_list(document)[line].strip().split(',')
+        cleaned_list.append(l)
+    return cleaned_list
 
-test2 = 'That.is, the second, line of the file.\n'
 
-okey = [test.strip().split(','), test2.strip().split(',')]
+def tuple_list(document):
+    '''
+    list becomes tuple list
+    '''
+    okey = strip_split(document)
+    pokey = [(okey[line][0],okey[line][1],okey[line][2])
+            for line in
+            range(len(strip_split(document)))]
+    return pokey
 
-pokey = [(okey[line][0],okey[line][1],okey[line][2]) for line in range(len(okey))]
+
+# Quick test
+#for i in range(len(tuple_list(document)[0:5])):
+#    print tuple_list(document)[i]
