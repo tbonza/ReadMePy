@@ -56,12 +56,12 @@ def tuple_list(document):
 
 
 # Quick test
-for i in range(len(tuple_list(document)[0:5])):
-    print tuple_list(document)[i]
+#for i in range(len(tuple_list(document)[0:5])):
+#    print tuple_list(document)[i]
 
 # Longer test
 #for i in range(len(tuple_list(document))):
 #    print tuple_list(document)[i]
 
 # Some numbers
-print len(tuple_list(document))
+#print len(tuple_list(document))
