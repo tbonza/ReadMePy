@@ -1,7 +1,6 @@
 # Inputs text used in ReadMePy
 # for Clinton Demo
 
-
 # Create file path
 def document(path, filename):
     '''
@@ -55,6 +54,15 @@ def tuple_list(document):
     return pokey
 
 
+def word_list(document):
+    '''
+    All words to a list 
+    for unigrams, bigrams, trigrams.
+    '''
+    okey = strip_split(document)
+    return okey
+
+
 # Quick test
 #for i in range(len(tuple_list(document)[0:5])):
 #    print tuple_list(document)[i]
@@ -65,3 +73,5 @@ def tuple_list(document):
 
 # Some numbers
 #print len(tuple_list(document))
+
+
