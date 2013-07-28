@@ -1,10 +1,20 @@
 # Inputs text used in ReadMePy
 # for Clinton Demo
 
+
+# Create file path
+def document(path, filename):
+    '''
+    Concatenate the file path 
+    and file name. 
+    '''
+    return path + filename
+
+# Define parameters for document
 path = '/home/ty/summer_project/clintonposts/'
+document = document(path, 'control.txt')
 
-document = path + 'control.txt'
-
+# File input functions
 def read_local(document): 
     '''
     Reads local files into
@@ -47,5 +57,12 @@ def tuple_list(document):
 
 
 # Quick test
-#for i in range(len(tuple_list(document)[0:5])):
+for i in range(len(tuple_list(document)[0:5])):
+    print tuple_list(document)[i]
+
+# Longer test
+#for i in range(len(tuple_list(document))):
 #    print tuple_list(document)[i]
+
+# Some numbers
+print len(tuple_list(document))
