@@ -17,8 +17,7 @@ document = document(path, 'control.txt')
 # File input functions
 def read_local(document): 
     '''
-    Reads local files into
-    ReadMePy by each line
+    Reads in a local file 
     '''
     f = open(document, 'r')
     return f
