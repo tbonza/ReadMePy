@@ -78,8 +78,15 @@ def info_for_db(RSS_links):
     c.execute("SELECT name FROM sqlite_master WHERE type='table';")
     feed_titles = c.fetchall()
     cleaned_titles = strip_title(feed_titles)
+
+    #Get data for each feed in the table 
+    get_RSS_link(RSS_link_list)
+    d = feedparser.parse('http://feeds.reuters.com/reuters/businessNews')
+
     # We want to do a for loop based on which tables are in the db
     for table in range(len(cleaned_tables)):
+        
+        
         # Each article needs to be entered from the RSS feed
         for article in range(10):
             if len(article) != 1:
