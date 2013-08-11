@@ -42,7 +42,7 @@ def initial_db(RSS_link_list):
             conn.close()
     return True #test
 
-
+# These functions may not be used #
 def strip_garbage(object):
     '''
     try to work this function out
@@ -50,6 +50,11 @@ def strip_garbage(object):
     pass
     sep = '<img'
     rest = text.split(sep, 1)[0]
+
+def get_articles(RSS_link_list):
+    '''Articles from each RSS feed to be put into DB'''
+    pass
+# End of functions that may not be used # 
 
 def strip_title(feed_titles):
     ''' Table names are cleaned for SQL queries'''
@@ -61,9 +66,6 @@ def strip_title(feed_titles):
         revised_list.append(title)
     return revised_list
 
-def get_articles(RSS_link_list):
-    '''Articles from each RSS feed to be put into DB'''
-    pass
 
 def info_for_db(RSS_links):
     ''' 
@@ -78,33 +80,30 @@ def info_for_db(RSS_links):
     c.execute("SELECT name FROM sqlite_master WHERE type='table';")
     feed_titles = c.fetchall()
     cleaned_titles = strip_title(feed_titles)
-
     #Get data for each feed in the table 
-    get_RSS_link(RSS_link_list)
-    d = feedparser.parse('http://feeds.reuters.com/reuters/businessNews')
-
+    links = get_RSS_link(RSS_link_list)
     # We want to do a for loop based on which tables are in the db
     for table in range(len(cleaned_tables)):
         # Here I'm assuming that the number of tables in the db
         # match the number of links in RSS_link_list. Clean this
         # up later. 
         if len(table) != 1:
-            
-        
-        # Each article needs to be entered from the RSS feed
-        for article in range(10):
-            if len(article) != 1:
-                # # # # # # # # # # # # # # # # # # # 
-                #These are the columns in each table #
-                # # # # # # # # # # # # # # # # # # #
-                # Hack simpleflake for sqlite3
-                primary_key = str(simpleflake()) 
-                # Remaining columns are iterated from feed parse
-                title = d.entries[article].title
-                description = d.entries[article].description
-                link = d.entries[article].link
-                published = d.entries[article].published
-                # Creating a string so we can insert rows for each table
+            d = feedparser.parse(links[table])
+            print links[table] # test
+            # Each article needs to be entered from the RSS feed
+            for article in range(10):
+                if len(article) != 1:
+                    # # # # # # # # # # # # # # # # # # # 
+                    #These are the columns in each table #
+                    # # # # # # # # # # # # # # # # # # #
+                    # Hack simpleflake for sqlite3
+                    primary_key = str(simpleflake()) 
+                    # Remaining columns are iterated from feed parse
+                    title = d.entries[article].title
+                    description = d.entries[article].description
+                    link = d.entries[article].link
+                    published = d.entries[article].published
+                    # Creating a string so we can insert rows for each table
                 cleaned_titles[table]
 
 
