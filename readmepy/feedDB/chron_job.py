@@ -85,7 +85,11 @@ def info_for_db(RSS_links):
 
     # We want to do a for loop based on which tables are in the db
     for table in range(len(cleaned_tables)):
-        
+        # Here I'm assuming that the number of tables in the db
+        # match the number of links in RSS_link_list. Clean this
+        # up later. 
+        if len(table) != 1:
+            
         
         # Each article needs to be entered from the RSS feed
         for article in range(10):
