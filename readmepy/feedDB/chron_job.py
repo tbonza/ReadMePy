@@ -43,18 +43,19 @@ def initial_db(RSS_link_list):
     return True #test
 
 # These functions may not be used #
-def strip_garbage(object):
-    '''
-    try to work this function out
-    '''
-    sep = '<img'
-    rest = text.split(sep, 1)[0]
-    
-
 def get_articles(RSS_link_list):
     '''Articles from each RSS feed to be put into DB'''
     pass
 # End of functions that may not be used # 
+
+def strip_garbage(description):
+    '''
+    Article descriptions were returning some garbage
+    '''
+    sep = '<img'
+    rest = description.split(sep, 1)
+    return rest
+
 
 def strip_title(feed_titles):
     ''' Table names are cleaned for SQL queries'''
@@ -100,7 +101,8 @@ def info_for_db(RSS_links):
                     primary_key = str(simpleflake()) 
                     # Remaining columns are iterated from feed parse
                     title = d.entries[article].title
-                    description = d.entries[article].description
+                    description_junk = d.entries[article].description
+                    description = strip_garbage(description_junk)
                     link = d.entries[article].link
                     published = d.entries[article].published
                     # Creating a string so we can insert rows for each table
