@@ -53,7 +53,7 @@ def strip_garbage(description):
     Article descriptions were returning some garbage
     '''
     sep = '<img'
-    rest = description.split(sep, 1)
+    rest = description.split(sep, 1)[0]
     return rest
 
 
@@ -91,6 +91,8 @@ def info_for_db(RSS_links):
         if len(table) != 1:
             d = feedparser.parse(links[table])
             print links[table] # test
+            # Create list for tuples to enter all at once
+            new_articles = []
             # Each article needs to be entered from the RSS feed
             for article in range(len(feedparser.parse(links[table]))):
                 if len(article) != 1:
@@ -101,11 +103,13 @@ def info_for_db(RSS_links):
                     primary_key = str(simpleflake()) 
                     # Remaining columns are iterated from feed parse
                     title = d.entries[article].title
-                    description_junk = d.entries[article].description
+                    description_junk = str(d.entries[article].description))
                     description = strip_garbage(description_junk)
                     link = d.entries[article].link
                     published = d.entries[article].published
-                    # Creating a string so we can insert rows for each table
+                    # Creating a list of tuples to insert all articles
+                    new_articles.append((primary_key, title, description,
+                                         link, published))
                 cleaned_titles[table]
 
                 # Two tasks at the moment: clean up decription and
