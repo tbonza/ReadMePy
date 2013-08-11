@@ -47,9 +47,9 @@ def strip_garbage(object):
     '''
     try to work this function out
     '''
-    pass
     sep = '<img'
     rest = text.split(sep, 1)[0]
+    
 
 def get_articles(RSS_link_list):
     '''Articles from each RSS feed to be put into DB'''
@@ -91,7 +91,7 @@ def info_for_db(RSS_links):
             d = feedparser.parse(links[table])
             print links[table] # test
             # Each article needs to be entered from the RSS feed
-            for article in range(10):
+            for article in range(len(feedparser.parse(links[table]))):
                 if len(article) != 1:
                     # # # # # # # # # # # # # # # # # # # 
                     #These are the columns in each table #
@@ -105,6 +105,9 @@ def info_for_db(RSS_links):
                     published = d.entries[article].published
                     # Creating a string so we can insert rows for each table
                 cleaned_titles[table]
+
+                # Two tasks at the moment: clean up decription and
+                # write sql insert query
 
 
 
