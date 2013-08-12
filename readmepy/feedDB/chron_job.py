@@ -2,7 +2,7 @@ import feedparser
 import sqlite3
 from simpleflake import * 
 import re
-# Reference: http://docs.python.org/2/library/sqlite3.html
+
 
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
@@ -43,11 +43,6 @@ def initial_db(RSS_link_list):
             conn.close()
     return True #test
 
-# These functions may not be used #
-def get_articles(RSS_link_list):
-    '''Articles from each RSS feed to be put into DB'''
-    pass
-# End of functions that may not be used # 
 
 def strip_garbage(description):
     '''
@@ -68,6 +63,21 @@ def strip_title(feed_titles):
         revised_list.append(title)
     return revised_list
 
+
+def populate_row(d, number):
+    '''Row entry for a given table'''
+    # # # # # # # # # # # # # # # # # # # 
+    #These are the columns in each table #
+    # # # # # # # # # # # # # # # # # # #
+    # Hack simpleflake for sqlite3
+    primary_key = str(simpleflake()) 
+    # Remaining columns are iterated from feed parse
+    title = d.entries[number].title
+    description_junk = str(d.entries[number].description))
+    description = strip_garbage(description_junk)
+    link = d.entries[number].link
+    published = d.entries[number].published
+    return primary_key, title, description, link, published # Can this be returned as a tuple? 
 
 def info_for_db(RSS_links):
     ''' 
@@ -97,49 +107,23 @@ def info_for_db(RSS_links):
             # Each article needs to be entered from the RSS feed
             for article in range(len(feedparser.parse(links[table]))):
                 if len(article) != 1:
-                    # # # # # # # # # # # # # # # # # # # 
-                    #These are the columns in each table #
-                    # # # # # # # # # # # # # # # # # # #
-                    # Hack simpleflake for sqlite3
-                    primary_key = str(simpleflake()) 
-                    # Remaining columns are iterated from feed parse
-                    title = d.entries[article].title
-                    description_junk = str(d.entries[article].description))
-                    description = strip_garbage(description_junk)
-                    link = d.entries[article].link
-                    published = d.entries[article].published
                     # Creating a list of tuples to insert all articles
-                    new_articles.append((primary_key, title, description,
-                                         link, published))
+                    new_articles.append((populate_row(d, article)))
                 elif len(article) == 1:
                     # Create string for insert query
                     insert_query = "INSERT INTO " + cleaned_tables[table] \
                                    + " VALUES (?,?,?,?,?)"
                     # Populating each table with values
                     c.executemany(insert_query, new_articles)
+        elif len(table) == 1:
+            # Save (commit) the changes
+            conn.commit()
+            # We can also close the connection if we are done with it.
+            conn.close()
 
-                # Two tasks at the moment: clean up decription and
-                # write sql insert query
-
-
-
-    
-d = feedparser.parse('http://feeds.reuters.com/reuters/businessNews')
-
-
-d['feed']['title']
-
-# These should be the fields
-d.feed.title
-d.feed.link
-d.feed.description
-d.feed.updated
-
-d.entries[0].title
-d.entries[0].link
-d.entries[0].description
-d.entries[0].published
+               
 
 
-text = d.entries[1].description
+
+
 
