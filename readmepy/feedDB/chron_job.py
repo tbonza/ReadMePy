@@ -2,6 +2,7 @@ import feedparser
 import sqlite3
 from simpleflake import * 
 import re
+# Reference: http://docs.python.org/2/library/sqlite3.html
 
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
@@ -110,7 +111,12 @@ def info_for_db(RSS_links):
                     # Creating a list of tuples to insert all articles
                     new_articles.append((primary_key, title, description,
                                          link, published))
-                cleaned_titles[table]
+                elif len(article) == 1:
+                    # Create string for insert query
+                    insert_query = "INSERT INTO " + cleaned_tables[table] \
+                                   + " VALUES (?,?,?,?,?)"
+                    # Populating each table with values
+                    c.executemany(insert_query, new_articles)
 
                 # Two tasks at the moment: clean up decription and
                 # write sql insert query
