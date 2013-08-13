@@ -73,12 +73,12 @@ def populate_row(d, number): # This function is broken
     primary_key = str(simpleflake()) 
     # Remaining columns are iterated from feed parse
     title = d.entries[number].title
-    description_junk = str(d.entries[number].description))
+    description_junk = str(d.entries[number].description)
     description = strip_garbage(description_junk)
     link = d.entries[number].link
     published = d.entries[number].published
     # Can this be returned as a tuple? 
-    return primary_key, title, description, link, published
+    return (primary_key, title, description, link, published)
     
 
 def info_for_db(RSS_links):
