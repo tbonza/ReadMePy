@@ -10,7 +10,7 @@ RSS_link_list = '/home/ty/code/data/feeds_list.txt'
 def get_RSS_link(RSS_link_list):
     '''RSS links used to pull feeds'''
     f = open(RSS_link_list, 'r').readlines()
-    return f[0:len(f)-1]
+    return f[0:len(f)-1] #Removes last \n to match len(cleaned_list)
 
 
 def initial_db(RSS_link_list):
@@ -63,12 +63,17 @@ def strip_title(feed_titles):
         revised_list.append(title)
     return revised_list
 
+def news_source(RSS_link_list):
+    '''
+    Gets articles from one news source to put in db
+    '''
+    
 
 def populate_row(d, number): 
-    '''Row entry for a given table'''
-    # # # # # # # # # # # # # # # # # # # 
-    #These are the columns in each table #
-    # # # # # # # # # # # # # # # # # # #
+    '''
+    Populates a row entry for a given table, the returned tuple matches 
+    the column names in each table. 
+    '''
     # Hack simpleflake for sqlite3
     primary_key = str(simpleflake()) 
     # Remaining columns are iterated from feed parse
@@ -127,4 +132,5 @@ def info_for_db(RSS_link_list):
 
 
 
-
+# creating a query
+# pulling articles from online
