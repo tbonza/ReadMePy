@@ -64,7 +64,7 @@ def strip_title(feed_titles):
     return revised_list
 
 
-def populate_row(d, number):
+def populate_row(d, number): # This function is broken
     '''Row entry for a given table'''
     # # # # # # # # # # # # # # # # # # # 
     #These are the columns in each table #
@@ -77,7 +77,9 @@ def populate_row(d, number):
     description = strip_garbage(description_junk)
     link = d.entries[number].link
     published = d.entries[number].published
-    return primary_key, title, description, link, published # Can this be returned as a tuple? 
+    # Can this be returned as a tuple? 
+    return primary_key, title, description, link, published
+    
 
 def info_for_db(RSS_links):
     ''' 
@@ -108,7 +110,7 @@ def info_for_db(RSS_links):
             for article in range(len(feedparser.parse(links[table]))):
                 if len(article) != 1:
                     # Creating a list of tuples to insert all articles
-                    new_articles.append((populate_row(d, article)))
+                    new_articles.append(populate_row(d, article))
                 elif len(article) == 1:
                     # Create string for insert query
                     insert_query = "INSERT INTO " + cleaned_tables[table] \
@@ -123,7 +125,10 @@ def info_for_db(RSS_links):
 
                
 
-
+#TODO#
+# See if populate_row is working
+# See if strip_garbage is working
+# See if info_for_db is working 
 
 
 
