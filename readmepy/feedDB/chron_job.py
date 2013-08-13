@@ -10,7 +10,7 @@ RSS_link_list = '/home/ty/code/data/feeds_list.txt'
 def get_RSS_link(RSS_link_list):
     '''RSS links used to pull feeds'''
     f = open(RSS_link_list, 'r').readlines()
-    return f
+    return f[0:len(f)-1]
 
 
 def initial_db(RSS_link_list):
@@ -64,7 +64,7 @@ def strip_title(feed_titles):
     return revised_list
 
 
-def populate_row(d, number): # This function is broken
+def populate_row(d, number): 
     '''Row entry for a given table'''
     # # # # # # # # # # # # # # # # # # # 
     #These are the columns in each table #
@@ -75,13 +75,13 @@ def populate_row(d, number): # This function is broken
     title = d.entries[number].title
     description_junk = str(d.entries[number].description)
     description = strip_garbage(description_junk)
+    print description # test
     link = d.entries[number].link
     published = d.entries[number].published
-    # Can this be returned as a tuple? 
     return (primary_key, title, description, link, published)
     
 
-def info_for_db(RSS_links):
+def info_for_db(RSS_link_list):
     ''' 
     Insert entries into their respective tables in
     feed.db
@@ -97,7 +97,7 @@ def info_for_db(RSS_links):
     #Get data for each feed in the table 
     links = get_RSS_link(RSS_link_list)
     # We want to do a for loop based on which tables are in the db
-    for table in range(len(cleaned_tables)):
+    for table in cleaned_titles:
         # Here I'm assuming that the number of tables in the db
         # match the number of links in RSS_link_list. Clean this
         # up later. 
@@ -107,13 +107,13 @@ def info_for_db(RSS_links):
             # Create list for tuples to enter all at once
             new_articles = []
             # Each article needs to be entered from the RSS feed
-            for article in range(len(feedparser.parse(links[table]))):
+            for article in feedparser.parse(links[table]):
                 if len(article) != 1:
                     # Creating a list of tuples to insert all articles
                     new_articles.append(populate_row(d, article))
                 elif len(article) == 1:
                     # Create string for insert query
-                    insert_query = "INSERT INTO " + cleaned_tables[table] \
+                    insert_query = "INSERT INTO " + cleaned_titles[table] \
                                    + " VALUES (?,?,?,?,?)"
                     # Populating each table with values
                     c.executemany(insert_query, new_articles)
@@ -125,10 +125,6 @@ def info_for_db(RSS_links):
 
                
 
-#TODO#
-# See if populate_row is working
-# See if strip_garbage is working
-# See if info_for_db is working 
 
 
 
