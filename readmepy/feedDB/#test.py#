@@ -15,6 +15,7 @@ def insert_query(RSS_link_list):
         '''
         create a query for the table
         '''
+        one_query_please = 
         for article in table:
             '''
             populate the query with articles
@@ -24,10 +25,7 @@ def insert_query(RSS_link_list):
                 '''
                 execute the query in sqlite
                 '''
-            
     return True
-
-
 
         cleaned_titles = strip_title(feed_titles)
         query_list = create_query(RSS_link_list)
