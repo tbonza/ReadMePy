@@ -94,7 +94,7 @@ def news_source(RSS_link_list, number):
     #Get data for each feed in the table 
     links = get_RSS_link(RSS_link_list)
     numbers =  range(len(links))
-    d = feedparser.parse(links[link])
+    d = feedparser.parse(links[number])
     print links[link] # test
     new_articles.append(populate_row(RSS_link_list, d))
     return new_articles
