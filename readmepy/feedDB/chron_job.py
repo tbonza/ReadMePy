@@ -3,6 +3,19 @@ import sqlite3
 from simpleflake import * 
 import re
 
+# # # # # Game Plan # # # # #
+# for each table, do one sql insert statement. The statement contains a list of tuples from all articles 
+# belonging in the table. 
+#
+# strip_garbage contributes a 'clean' description to the tuple
+# strip_title contributes a 'clean' title to the tuple
+#
+# populate_row contributes a tuple for each article within a table
+# news_sources contributes a list of tuples from populate_row 
+#
+#
+# info_for_db should contribute to populate_row for each table in the database
+# # # # # # # # # # # # # # #
 
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
