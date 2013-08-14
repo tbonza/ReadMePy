@@ -3,6 +3,19 @@ import sqlite3
 from simpleflake import * 
 import re
 
+# # # # # Game Plan # # # # #
+# for each table, do one sql insert statement. The statement contains a list of tuples from all articles 
+# belonging in the table. 
+#
+# strip_garbage contributes a 'clean' description to the tuple
+# strip_title contributes a 'clean' title to the tuple
+#
+# populate_row contributes a tuple for each article within a table
+# news_sources contributes a list of tuples from populate_row 
+#
+#
+# info_for_db should contribute to populate_row for each table in the database
+# # # # # # # # # # # # # # #
 
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
@@ -85,47 +98,62 @@ def populate_row(RSS_link_list, d):
     return article_list
     
 
-def news_source(RSS_link_list, number):
+def news_source(RSS_link_list):
     '''
     Gets articles from one news source to put in db
     '''
     # Create list for tuples to enter all at once
     new_articles = []
-    #Get data for each feed in the table 
+    #Get data for each feed in the table
     links = get_RSS_link(RSS_link_list)
     numbers =  range(len(links))
     d = feedparser.parse(links[number])
+    numbers = range(len(links))
+    d = feedparser.parse(links[link])
     print links[link] # test
     new_articles.append(populate_row(RSS_link_list, d))
     return new_articles
 
 
-def info_for_db(RSS_link_list):
-    ''' 
-    Insert entries into their respective tables in
-    feed.db
-    '''
-    #Initialize sqlite3
+def init_sqlite3(call):
+    ''' open sqlite3 '''
     database = "FeedMe.db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    #Selecting all tables for list
-    c.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    return call 
+    
+    
+def create_query(RSS_link_list):
+    '''
+    Create a list of queries to run that
+    include the name of each table 
+    '''
+    c = init_sqlite3(c)
+    c.execute("SELECT...")
     feed_titles = c.fetchall()
-    cleaned_titles = strip_title(feed_titles)
-    # We want to do a for loop based on which tables are in the db
-    for table in cleaned_titles:
-        if len(table) != 1:
-            # Create string for insert query
-            insert_query = "INSERT INTO " + table + " VALUES (?,?,?,?,?)"
-            # Get new articles for table
-            new_articles = news_sources(RSS_link_list)
-            c.executemany(insert_query, new_articles)
-        elif len(table) == 1:
-            # Save (commit) the changes
-            conn.commit()
-            # We can also close the connection if we are done with it.
-            conn.close()
+    # create a list of insert queries with a list comprehension
+    insert_query = [titles = [] for title in strip_title(feed_titles)] 
+    # this needs adjustment
+    # insert_query = "INSERT INTO " + table + " VALUES (?,?,?,?,?)" # 
+    return insert_query
+    
+    
+def info_for_db(RSS_link_list):
+    '''
+    Insert entries into their respective tables in
+    feed.db
+    '''
+    c = init_sqlite3(c)
+    conn = init_sqlite3(conn)
+    insert_query = create_query(RSS_link_list)
+    for table in range(len(get_RSS_link(RSS_link_list))):
+      if table <= len(get_RSS_link(RSS_link_list)):
+        news_articles = news_source(RSS_link_list) 
+        c.executemany(insert_query[table], news_articles)      
+      elif table > len(get_RSS_link(RSS_link_list)):
+        conn.commit()
+        conn.close()
+    return True # test
 
                
 
