@@ -67,9 +67,17 @@ def news_source(RSS_link_list):
     '''
     Gets articles from one news source to put in db
     '''
-    
+    # Create list for tuples to enter all at once
+    new_articles = []
+    #Get data for each feed in the table 
+    links = get_RSS_link(RSS_link_list)
+    for link in range(len(links):
+        d = feedparser.parse(links[link])
+        print links[link] # test
+        new_articles.append(populate_row(RSS_link_list, d, link))
+    return new_articles
 
-def populate_row(d, number): 
+def populate_row(RSS_link_list, d, number):
     '''
     Populates a row entry for a given table, the returned tuple matches 
     the column names in each table. 
@@ -99,29 +107,14 @@ def info_for_db(RSS_link_list):
     c.execute("SELECT name FROM sqlite_master WHERE type='table';")
     feed_titles = c.fetchall()
     cleaned_titles = strip_title(feed_titles)
-    #Get data for each feed in the table 
-    links = get_RSS_link(RSS_link_list)
     # We want to do a for loop based on which tables are in the db
     for table in cleaned_titles:
-        # Here I'm assuming that the number of tables in the db
-        # match the number of links in RSS_link_list. Clean this
-        # up later. 
         if len(table) != 1:
-            d = feedparser.parse(links[table])
-            print links[table] # test
-            # Create list for tuples to enter all at once
-            new_articles = []
-            # Each article needs to be entered from the RSS feed
-            for article in feedparser.parse(links[table]):
-                if len(article) != 1:
-                    # Creating a list of tuples to insert all articles
-                    new_articles.append(populate_row(d, article))
-                elif len(article) == 1:
-                    # Create string for insert query
-                    insert_query = "INSERT INTO " + cleaned_titles[table] \
-                                   + " VALUES (?,?,?,?,?)"
-                    # Populating each table with values
-                    c.executemany(insert_query, new_articles)
+            # Create string for insert query
+            insert_query = "INSERT INTO " + table + " VALUES (?,?,?,?,?)"
+            # Get new articles for table
+            new_articles = news_sources(RSS_link_list)
+            c.executemany(insert_query, new_articles)
         elif len(table) == 1:
             # Save (commit) the changes
             conn.commit()
