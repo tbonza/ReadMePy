@@ -63,7 +63,29 @@ def strip_title(feed_titles):
         revised_list.append(title)
     return revised_list
 
-def news_source(RSS_link_list):
+
+def populate_row(RSS_link_list, d):
+    '''
+    Populates a row entry for a given table, the returned tuple matches 
+    the column names in each table. 
+    '''
+    article_list = []
+    for article in range(len(d)):
+        # Hack simpleflake for sqlite3
+        primary_key = str(simpleflake()) 
+        # Remaining columns are iterated from feed parse
+        title = d.entries[article].title
+        description_junk = str(d.entries[article].description)
+        description = strip_garbage(description_junk)
+        print description # test
+        link = d.entries[article].link
+        published = d.entries[article].published
+        article_list.append((primary_key, title, description, 
+                             link, published))
+    return article_list
+    
+
+def news_source(RSS_link_list, number):
     '''
     Gets articles from one news source to put in db
     '''
@@ -71,28 +93,12 @@ def news_source(RSS_link_list):
     new_articles = []
     #Get data for each feed in the table 
     links = get_RSS_link(RSS_link_list)
-    for link in range(len(links):
-        d = feedparser.parse(links[link])
-        print links[link] # test
-        new_articles.append(populate_row(RSS_link_list, d, link))
+    numbers =  range(len(links))
+    d = feedparser.parse(links[link])
+    print links[link] # test
+    new_articles.append(populate_row(RSS_link_list, d))
     return new_articles
 
-def populate_row(RSS_link_list, d, number):
-    '''
-    Populates a row entry for a given table, the returned tuple matches 
-    the column names in each table. 
-    '''
-    # Hack simpleflake for sqlite3
-    primary_key = str(simpleflake()) 
-    # Remaining columns are iterated from feed parse
-    title = d.entries[number].title
-    description_junk = str(d.entries[number].description)
-    description = strip_garbage(description_junk)
-    print description # test
-    link = d.entries[number].link
-    published = d.entries[number].published
-    return (primary_key, title, description, link, published)
-    
 
 def info_for_db(RSS_link_list):
     ''' 
