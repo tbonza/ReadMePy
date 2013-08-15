@@ -108,8 +108,6 @@ def news_source(RSS_link_list):
     links = get_RSS_link(RSS_link_list)
     numbers =  range(len(links))
     d = feedparser.parse(links[number])
-    numbers = range(len(links))
-    d = feedparser.parse(links[link])
     print links[link] # test
     new_articles.append(populate_row(RSS_link_list, d))
     return new_articles
@@ -134,7 +132,7 @@ def create_query(RSS_link_list):
     # create a list of insert queries with a list comprehension
     insert_query = [titles = [] for title in strip_title(feed_titles)] 
     # this needs adjustment
-    # insert_query = "INSERT INTO " + table + " VALUES (?,?,?,?,?)" # 
+    insert_query = "INSERT INTO " + table + " VALUES (?,?,?,?,?)"  
     return insert_query
     
     
