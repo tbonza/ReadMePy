@@ -7,6 +7,7 @@ import re
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
 
+
 def initial_db(RSS_link_list):
     '''
     Sets up db tables where each RSS link feeds
@@ -102,15 +103,16 @@ def articles(RSS_link_list, number):
         new_list.append((primary_key,title,description,link,published))
     return new_list
 
+
 def table(RSS_link_list):
     '''
-    This should be a list of tables where each table
+    This should be a dictionary of tables where each table
     consists of a list of tuples. 
     '''
-    table_dict = {}
-    for number in range(len(get_tablenames(RSS_link_list))):
-        table_dict[get_tablenames(RSS_link_list)[number]] = \
-                articles(RSS_link_list, number)
+    table_dict = { \
+                 get_tablenames(RSS_link_list)[number]: \
+                 articles(RSS_link_list, number) \
+                 for number in range(len(get_tablenames(RSS_link_list)))}
     return table_dict
 
 
