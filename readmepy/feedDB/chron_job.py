@@ -107,12 +107,11 @@ def table(RSS_link_list):
     This should be a list of tables where each table
     consists of a list of tuples. 
     '''
-    table_list = []
+    table_dict = {}
     for number in range(len(get_tablenames(RSS_link_list))):
-        for table in get_tablenames(RSS_link_list):
-            table = articles(RSS_link_list, number)
-            table_list.append(table)
-    return table_list
+        table_dict[get_tablenames(RSS_link_list)[number]] = \
+                articles(RSS_link_list, number)
+    return table_dict
 
 
 def populate_db(RSS_link_list):
