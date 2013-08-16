@@ -1,0 +1,7 @@
+8/16/13
+Removed the following RSS feeds from the database & RSS_link_list
+because they are raising UnicodeEncodeError when 
+chron_job.articles(RSS_link_list, number) is called:
+  http://rss.nytimes.com/services/xml/rss/nyt/Business.xml
+  http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+  http://rss.nytimes.com/services/xml/rss/nyt/World.xml
