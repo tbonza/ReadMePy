@@ -56,14 +56,14 @@ def get_tablenames(RSS_link_list):
     return revised_list
 
 
-def insert_query(list_tables):
+def insert_query(RSS_link_list):
     '''
     Create a list of queries to run that
     include the name of each table 
     '''
     insert_queries = \
     ["INSERT INTO " + table_name + " VALUES (?,?,?,?,?)" 
-     for table_name in get_tablenames(list_tables)]
+     for table_name in get_tablenames(RSS_link_list)]
     return insert_queries
 
 
@@ -114,8 +114,22 @@ def table(RSS_link_list):
             table_list.append(table)
     return table_list
 
+
+def populate_db(RSS_link_list):
+    #Initialize sqlite3 
+    database = "FeedMe.db"
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    # Insert queries across multiple tables
+    for table in len(range(table(RSS_link_list))):
+       c.executemany(insert_query(RSS_link_list)[table],\
+                     table(RSS_link_list)[table])
+       conn.commit()
+    return True # Test
+    
+
 # test
-'''
+#initial_db(RSS_link_list)
 a = table(RSS_link_list) 
-print a[0]
-'''
+print a[0][1]
+
