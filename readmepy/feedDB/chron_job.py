@@ -62,9 +62,9 @@ def insert_query(RSS_link_list):
     Create a list of queries to run that
     include the name of each table 
     '''
-    insert_queries = \
-    ["INSERT INTO " + table_name + " VALUES (?,?,?,?,?)" 
-     for table_name in get_tablenames(RSS_link_list)]
+    insert_queries = {\
+    table_name: "INSERT INTO " + table_name + " VALUES (?,?,?,?,?)" 
+     for table_name in get_tablenames(RSS_link_list)}
     return insert_queries
 
 
@@ -78,8 +78,12 @@ def strip_garbage(description):
     '''
     Article descriptions were returning some garbage
     '''
-    sep = '<img'
-    rest = description.split(sep, 1)[0]
+    if len(description) > 0:
+        sep = '<div'
+        rest = description.split(sep, 1)[0]
+    elif len(decription) <= len(rest):
+        sep = '<img'
+        rest = description.split(sep, 1)[0]
     return rest
 
 
@@ -122,15 +126,19 @@ def populate_db(RSS_link_list):
     conn = sqlite3.connect(database)
     c = conn.cursor()
     # Insert queries across multiple tables
-    for table in len(range(table(RSS_link_list))):
-       c.executemany(insert_query(RSS_link_list)[table],\
-                     table(RSS_link_list)[table])
+    for table_name in table(RSS_link_list).keys():
+       c.executemany(insert_query(RSS_link_list)[table_name],\
+                     table(RSS_link_list)[table_name])
        conn.commit()
+    conn.close()
     return True # Test
+
     
 
 # test
-#initial_db(RSS_link_list)
-a = table(RSS_link_list) 
-print a[0][1]
+initial_db(RSS_link_list)
+#a = table(RSS_link_list) 
+#print a['CNNcomTopStories'][1]
+populate_db(RSS_link_list)
+print "\n that's all folks \n"
 
