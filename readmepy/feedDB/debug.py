@@ -1,5 +1,5 @@
 # Debug chron_job.py
-from chron_job import * as cj
+import chron_job as cj
 
 count = len(cj.get_tablenames(RSS_link_list))
 print count

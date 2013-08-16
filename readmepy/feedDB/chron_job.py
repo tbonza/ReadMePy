@@ -7,6 +7,36 @@ import re
 # Define parameters for document
 RSS_link_list = '/home/ty/code/data/feeds_list.txt'
 
+def initial_db(RSS_link_list):
+    '''
+    Sets up db tables where each RSS link feeds
+    into a separate table because it's easier
+    to aggregate then deaggregate.
+    '''
+    #Initialize sqlite3 
+    database = "FeedMe.db"
+    conn = sqlite3.connect(database)
+    c = conn.cursor() 
+    for RSS_link in get_RSS_link(RSS_link_list):
+        if len(RSS_link) != 1:
+            # Make table name match RSS feed name
+            d = feedparser.parse(RSS_link)
+            table_name = re.sub(r'\W+', '', d.feed.title)
+            print table_name #test
+            # Creating string separately makes multiple table 
+            # creation easier
+            table = "CREATE TABLE " +  table_name + \
+                    "( primary_key text, title text , description text," \
+                    "link text, published text)" 
+            # Create table in sqlite3
+            c.execute(table)
+        elif len(RSS_link) == 1:
+            # Save (commit) the changes
+            conn.commit()
+            # Close the connection to sqlite3
+            conn.close()
+    return True #test
+
 
 def get_tablenames(RSS_link_list):
     ''' Table names are cleaned for SQL queries'''
@@ -84,5 +114,8 @@ def table(RSS_link_list):
             table_list.append(table)
     return table_list
 
-a = table(RSS_link_list)
+# test
+'''
+a = table(RSS_link_list) 
 print a[0]
+'''
